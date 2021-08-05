@@ -35,7 +35,9 @@ mapDesktopsFromRegistry()
     IdLength := 32
     SessionId := getSessionId()
     if (SessionId) {
-        RegRead, CurrentDesktopId, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, CurrentVirtualDesktop
+        ;RegRead, CurrentDesktopId, HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\VirtualDesktops, CurrentVirtualDesktop
+        RegRead, CurrentDesktopId, HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\%SessionId%\VirtualDesktops, CurrentVirtualDesktop
+        ; RegRead, CurrentDesktopId, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, CurrentVirtualDesktop
         ; OutputDebug, debug -> %CurrentDesktopId%
         if (CurrentDesktopId) {
             IdLength := StrLen(CurrentDesktopId)
@@ -43,7 +45,8 @@ mapDesktopsFromRegistry()
     }
 
     ; Get a list of the UUIDs for all virtual desktops on the system
-    RegRead, DesktopList, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
+    RegRead, DesktopList, HKEY_CURRENT_USER, SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
+    ; RegRead, DesktopList, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
     if (DesktopList) {
         DesktopListLength := StrLen(DesktopList)
         ; Figure out how many virtual desktops there are
@@ -113,6 +116,13 @@ _switchDesktopToTarget(targetDesktop)
         Send {LWin down}{LCtrl down}{Right down}{LWin up}{LCtrl up}{Right up}
         CurrentDesktop++
         OutputDebug, [right] target: %targetDesktop% current: %CurrentDesktop%
+    }
+
+    ; Go left until we reach the desktop we want
+    while(CurrentDesktop > targetDesktop) {
+        Send {LWin down}{LCtrl down}{Left down}{Lwin up}{LCtrl up}{Left up}
+        CurrentDesktop--
+        OutputDebug, [left] target: %targetDesktop% current: %CurrentDesktop%
     }
 
     ; Go left until we reach the desktop we want
@@ -207,11 +217,26 @@ getForemostWindowIdOnDesktop(n)
 
 MoveCurrentWindowToDesktop(desktopNumber) {
     WinGet, activeHwnd, ID, A
+    DllCall(MoveWindowToDesktopNumberProc, UInt, activeHwnd, UInt, desktopNumber - 1)
+    switchDesktopByNumber(desktopNumber)
+}
 
-    if DllCall(MoveWindowToDesktopNumberProc, "UInt", activeHwnd, "UInt", desktopNumber -1 )
-    {
-        switchDesktopByNumber(desktopNumber)
-    }
+MoveCurrentWindowToRightDesktop()
+{
+    global CurrentDesktop, DesktopCount
+    updateGlobalVariables()
+    WinGet, activeHwnd, ID, A
+    DllCall(MoveWindowToDesktopNumberProc, UInt, activeHwnd, UInt, (CurrentDesktop == DesktopCount ? 1 : CurrentDesktop + 1) - 1)
+    _switchDesktopToTarget(CurrentDesktop == DesktopCount ? 1 : CurrentDesktop + 1)
+}
+
+MoveCurrentWindowToLeftDesktop()
+{
+    global CurrentDesktop, DesktopCount
+    updateGlobalVariables()
+    WinGet, activeHwnd, ID, A
+    DllCall(MoveWindowToDesktopNumberProc, UInt, activeHwnd, UInt, (CurrentDesktop == 1 ? DesktopCount : CurrentDesktop - 1) - 1)
+    _switchDesktopToTarget(CurrentDesktop == 1 ? DesktopCount : CurrentDesktop - 1)
 }
 
 ;
