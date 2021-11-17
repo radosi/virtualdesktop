@@ -13,7 +13,7 @@ Home, End, Page Up, Page Down, Del |<kbd>CapsLock</kbd> + <kbd>←</kbd><br><kbd
 You can also customize the hotkeys and actions as described in the section below.
 
 ## Overview
-This script creates more convenient hotkeys for switching virtual desktops in Windows 11 and solve FN left right arrows form DELL XPS 9700. Capslock is sacrificed 
+This script creates more convenient hotkeys for switching virtual desktops in Windows 11 and solve FN left right arrows form DELL XPS 9700, 9500, 9710, 9510. Capslock is sacrificed 
 
 ## Running
 [Install AutoHotkey](https://autohotkey.com/download/) v1.1 or later, then run the `desktop_switcher.ahk` script (open with AutoHotkey if prompted). You can disable the switching animation by opening "Adjust the appearance and performance of Windows" and then unselecting the checkmark "Animate windows when minimizing and maximizing".
