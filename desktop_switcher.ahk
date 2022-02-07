@@ -35,9 +35,15 @@ mapDesktopsFromRegistry()
     IdLength := 32
     SessionId := getSessionId()
     if (SessionId) {
+        
+        ; Older windows 10 version
         ;RegRead, CurrentDesktopId, HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\VirtualDesktops, CurrentVirtualDesktop
-        RegRead, CurrentDesktopId, HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\%SessionId%\VirtualDesktops, CurrentVirtualDesktop
-        ; RegRead, CurrentDesktopId, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, CurrentVirtualDesktop
+        
+        ; Windows 10
+        ;RegRead, CurrentDesktopId, HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\%SessionId%\VirtualDesktops, CurrentVirtualDesktop
+        
+        ; Windows 11
+        RegRead, CurrentDesktopId, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, CurrentVirtualDesktop
         ; OutputDebug, debug -> %CurrentDesktopId%
         if (CurrentDesktopId) {
             IdLength := StrLen(CurrentDesktopId)
@@ -45,8 +51,12 @@ mapDesktopsFromRegistry()
     }
 
     ; Get a list of the UUIDs for all virtual desktops on the system
-    RegRead, DesktopList, HKEY_CURRENT_USER, SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
-    ; RegRead, DesktopList, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
+
+    ; Windows 10
+    ; RegRead, DesktopList, HKEY_CURRENT_USER, SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
+
+    ; Windwos 11
+    RegRead, DesktopList, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops, VirtualDesktopIDs
     if (DesktopList) {
         DesktopListLength := StrLen(DesktopList)
         ; Figure out how many virtual desktops there are
@@ -154,7 +164,7 @@ getCurrentDesktop()
 
     ; SplashTextOn, , , <<<     %CurrentDesktop%     >>>, fontsz = 20
     Progress, zh0 B W100 fs50, %CurrentDesktop%
-    Sleep, 1000
+    Sleep, 300
     ; SplashTextOff
     Progress, Off
 }
@@ -164,6 +174,7 @@ switchDesktopByNumber(targetDesktop)
     global CurrentDesktop, DesktopCount
     updateGlobalVariables()
     _switchDesktopToTarget(targetDesktop)
+    getCurrentDesktop()
 }
 
 switchDesktopToLastOpened()
