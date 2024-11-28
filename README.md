@@ -5,9 +5,9 @@ An AutoHotkey script for Windows that lets a user switch virtual desktops by pre
 
 Action | Keys 
 --- | :-:
-**Switch** to virtual desktop **1, 2, etc.**<br>*(you can also use the Numpad)*|<kbd>CapsLock</kbd> + <kbd>1</kbd><br><kbd>CapsLock</kbd> + <kbd>2</kbd><br>...<br><kbd>CapsLock</kbd> + <kbd>0</kbd>
+**Switch** to virtual desktop **1, 2, etc.**<br>*(you can also use the Numpad)*|<kbd>CapsLock</kbd> + <kbd>1</kbd><br><kbd>CapsLock</kbd> + <kbd>2</kbd><br>...<br><kbd>CapsLock</kbd> + <kbd>0</kbd><br><kbd>CapsLock</kbd> + <kbd>-</kbd><br><kbd>CapsLock</kbd> + <kbd>=</kbd>
 **Current virtual desktop ID 1 - 10** to the last desktop used|<kbd>CapsLock</kbd> + <kbd>`</kbd>
-**Move** the current window to another desktop, then switch to it<br>*Keys <kbd>Q</kbd>, <kbd>W</kbd>, etc. correspond to **1st, 2nd, etc.** desktops*|<kbd>CapsLock</kbd> + <kbd>Q</kbd><br><kbd>CapsLock</kbd> + <kbd>W</kbd><br>...<br><kbd>CapsLock</kbd> + <kbd>P</kbd>
+**Move** the current window to another desktop, then switch to it<br>*Keys <kbd>Q</kbd>, <kbd>W</kbd>, etc. correspond to **1st, 2nd, etc.** desktops*|<kbd>CapsLock</kbd> + <kbd>Q</kbd><br><kbd>CapsLock</kbd> + <kbd>W</kbd><br>...<br><kbd>CapsLock</kbd> + <kbd>P</kbd><br><kbd>CapsLock</kbd> + <kbd>[</kbd><br><kbd>CapsLock</kbd> + <kbd>]</kbd>
 Home, End, Page Up, Page Down, Del |<kbd>CapsLock</kbd> + <kbd>←</kbd><br><kbd>CapsLock</kbd> + <kbd>→</kbd><br><kbd>CapsLock</kbd> + <kbd>↑</kbd><br><kbd>CapsLock</kbd> + <kbd>↓</kbd><br><kbd>CapsLock</kbd> + <kbd>backspace</kbd>
 
 You can also customize the hotkeys and actions as described in the section below.
