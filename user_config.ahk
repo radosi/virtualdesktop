@@ -31,8 +31,8 @@ CapsLock & Backspace::Delete
 
 CapsLock & `::getCurrentDesktop()
 
-CapsLock & ]::MoveCurrentWindowToRightDesktop()
-CapsLock & [::MoveCurrentWindowToLeftDesktop()
+CapsLock & \::MoveCurrentWindowToRightDesktop()
+CapsLock & '::MoveCurrentWindowToLeftDesktop()
 
 CapsLock & 1::switchDesktopByNumber(1)
 CapsLock & 2::switchDesktopByNumber(2)
@@ -44,6 +44,8 @@ CapsLock & 7::switchDesktopByNumber(7)
 CapsLock & 8::switchDesktopByNumber(8)
 CapsLock & 9::switchDesktopByNumber(9)
 CapsLock & 0::switchDesktopByNumber(10)
+CapsLock & -::switchDesktopByNumber(11)
+CapsLock & =::switchDesktopByNumber(12)
 
 
 CapsLock & q::MoveCurrentWindowToDesktop(1)
@@ -56,6 +58,8 @@ CapsLock & u::MoveCurrentWindowToDesktop(7)
 CapsLock & i::MoveCurrentWindowToDesktop(8)
 CapsLock & o::MoveCurrentWindowToDesktop(9)
 CapsLock & p::MoveCurrentWindowToDesktop(10)
+CapsLock & {::MoveCurrentWindowToDesktop(11)
+CapsLock & }::MoveCurrentWindowToDesktop(12)
 
 CapsLock & a::Left
 CapsLock & x::Right
